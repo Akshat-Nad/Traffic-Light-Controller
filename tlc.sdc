@@ -1,30 +1,17 @@
-# Create main clock with 10ns period (100MHz)
 create_clock -name clk -period 10 -waveform {0 5} [get_ports clock]
-
-# Clock transition times
 set_clock_transition -rise 0.1 [get_clocks clk]
 set_clock_transition -fall 0.1 [get_clocks clk]
-
-# Clock uncertainty (for setup/hold margin)
 set_clock_uncertainty 0.01 [get_clocks clk]
 
-# Input delay for reset signal (assuming active-high reset)
 set_input_delay -max 1.0 [get_ports reset] -clock [get_clocks clk]
 
-# Output delay for light signals (north, south, east, west)
 set_output_delay -max 1.0 [get_ports north] -clock [get_clocks clk]
 set_output_delay -max 1.0 [get_ports south] -clock [get_clocks clk]
 set_output_delay -max 1.0 [get_ports east] -clock [get_clocks clk]
 set_output_delay -max 1.0 [get_ports west] -clock [get_clocks clk]
 
-# Optional: Load and drive assumptions for accuracy
-# set_driving_cell -lib_cell INVX1 -library <your_lib> [get_ports reset]
-# set_load 0.05 [get_ports {north south east west}]set sdc_version 1.7
-
 set_units -capacitance 1000.0fF
 set_units -time 1000.0ps
-
-# Set the current design
 current_design counter
 
 create_clock -name "clk" -add -period 10.0 -waveform {0.0 5.0} [get_ports clk]
