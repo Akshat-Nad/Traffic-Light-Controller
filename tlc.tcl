@@ -1,11 +1,11 @@
-set_db init_netlist_files /home/nielit/aarushi/counter_design_database_45nm/physical_design/tlc_net.v
+set_db init_netlist_files /home/nielit/akshat/counter_design_database_45nm/physical_design/tlc_net.v
 set_db init_lef_files {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
 set_db init_power_nets VDD
 set_db init_ground_nets VSS
 set_db init_mmmc_files  tlc.view
 read_mmmc tlc.view
 read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
-read_netlist /home/nielit/aarushi/counter_design_database_45nm/physical_design/tlc_net.v -top traffic
+read_netlist /home/nielit/akshat/counter_design_database_45nm/physical_design/tlc_net.v -top traffic
 init_design
 
 connect_global_net VDD -type pg_pin -pin_base_name VDD -inst_base_name *
@@ -90,8 +90,7 @@ set_layer_preference powerNet -color {#0000FF #0010DE #0020BD #00319C #00417B #0
 set_layer_preference powerNet -color {#0000ff #0010de #0020bd #00319c #00417b #00525a #006239 #007318 #088300 #299400 #4aa400 #6ab400 #8bc500 #acd500 #cde600 #eef600 #fff900 #ffed00 #ffe200 #ffd600 #ffcb00 #ffbf00 #ffb400 #ffa800 #ff9500 #ff8000 #ff6a00 #ff5500 #ff4000 #ff2a00 #ff1500 #ff0000}
 set_layer_preference powerNet -color {#0000ff #0010de #0020bd #00319c #00417b #00525a #006239 #007318 #088300 #299400 #4aa400 #6ab400 #8bc500 #acd500 #cde600 #eef600 #fff900 #ffed00 #ffe200 #ffd600 #ffcb00 #ffbf00 #ffb400 #ffa800 #ff9500 #ff8000 #ff6a00 #ff5500 #ff4000 #ff2a00 #ff1500 #ff0000}
 write_db tlc.inn -lib
-add_fillers -base_cells FILL8 FILL64 FILL4 FILL32 FILL2 FILL16 FILL1 -prefix FILLER_tcl
+add_fillers -base_cells FILL8 FILL64 FILL4 FILL32 FILL2 FILL16 FILL1 -prefix F
 write_stream traffic -lib_name DesignLib -unit 2000 -mode all
 report_timing -output_format gtd -max_paths 10000 -max_slack 0.75 -path_exceptions all -early > top.mtarpt
 read_timing_debug_report -name default_report top.mtarpt -max_path_num 10000 -update_category 0
-gui_deselect -all
