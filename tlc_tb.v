@@ -1,22 +1,24 @@
-module traffic_tb();
-  wire [2:0] north,south,east,west;
-  reg clock,reset;
-  traffic DUT(north,south,east,west,clock,reset);
-  initial
-    begin
-      clock=1'b1;
-      forever #5 clock=~clock;
+`timescale 1ns/1ps
+
+module tb_traffic;
+    reg clk, rst;
+    wire [2:0] n,s,e,w;
+
+    traffic uut (.n(n), .s(s), .e(e), .w(w), .clk(clk), .rst(rst));
+
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    initial begin
+        rst = 1;
+        #10;
+        rst = 0;
+        #200;
+        $finish;
     end
-  initial
-    begin
-      reset=1'b1;
-      #10 reset=1'b0;
-      #1000;
-      $dumpfile("dump.vcd");
-      $dumpvars(1);
-      $monitor("clock=%d,north road=%b,south road=%b,east road=%b,west road=%b,reset=%b",clock,north,south,east,west,reset);//printf
-      clock=0;
-      #8000;//limitiation of output
-      $finish;
+
+    initial begin
+        $display("Time\tN\tS\tE\tW\tState");
+        $monitor("%0dns\t%b\t%b\t%b\t%b\t%b", $time, n, s, e, w, uut.st);
     end
 endmodule
