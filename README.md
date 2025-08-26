@@ -1,4 +1,4 @@
-# 4-Way Traffic Light Controller
+## Traffic Light Controller
 
 This project implements a **4-way traffic light controller** using Verilog HDL and carries it through the complete ASIC design flow with Cadence tools. The controller handles signal sequencing (Red, Yellow, Green) across four directions, ensuring safe and efficient intersection management.  
 
